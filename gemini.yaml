@@ -1,0 +1,53 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: gemini-secret
+  namespace: gemini
+type: Opaque
+data:
+  GOOGLE_APPLICATION_CREDENTIALS: QUl6YVN5RHVEOXliQ0tYUldjZVZnQ09XT3RBTzNjdHN4WV9rR0Vr                ## base64 encoded value of original password - command: echo -n API_KEY | base64
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gemini-deployment
+  namespace: gemini
+spec:
+  selector:
+    matchLabels:
+      version: v1           # Pod label to be used by Service to select the pods from this deployment
+  replicas: 1                 # number of replica of the Pods
+  template:
+    metadata:
+      labels:
+        env: dev         # Pod's label
+        app: gemini
+        version: v1
+    spec:
+      containers:
+      - name: gemini-container
+        image: gcr.io/eco-tract-422800-r5/gemini-ai      # which image it will use
+        ports:
+        - containerPort: 5000     # Port exposed by container inside the Pod
+        envFrom:
+          - secretRef:
+              name: gemini-secret
+              optional: false
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: gemini-service
+  namespace: gemini
+  labels:
+    version: v1
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 8080
+    protocol: TCP
+    targetPort: 5000
+  selector:
+    app: gemini
+    version: v1
+    env: dev
