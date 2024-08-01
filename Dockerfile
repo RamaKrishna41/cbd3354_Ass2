@@ -17,7 +17,5 @@ COPY . .
 # Expose the port on which the Flask app will run
 EXPOSE 5000
 
-ENV GOOGLE_APPLICATION_CREDENTIALS="AIzaSyDuD9ybCKXRWceVgCOWOtAO3ctsxY_kGEk"
-
 # Define the command to run the Flask application
 CMD ["python", "app.py"]

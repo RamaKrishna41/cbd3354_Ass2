@@ -5,7 +5,7 @@ metadata:
   namespace: gemini
 type: Opaque
 data:
-  GOOGLE_APPLICATION_CREDENTIALS: QUl6YVN5RHVEOXliQ0tYUldjZVZnQ09XT3RBTzNjdHN4WV9rR0Vr                ## base64 encoded value of original password - command: echo -n API_KEY | base64
+  GOOGLE_APPLICATION_CREDENTIALS: QUl6YVN5QndodmM3ZERzUXM4MkRwdlZyT2hNVEJ6dVBzb1ZYR01V                ## base64 encoded value of original password - command: echo -n API_KEY | base64
 ---
 apiVersion: apps/v1
 kind: Deployment
